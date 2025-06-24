@@ -10,18 +10,40 @@
   let currentHtml = '';
   let audioEl;
 
+  // Playback state
+  let currentTime = 0;
+  let duration = 0;
+  let isPlaying = false;
+
+  function formatTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
   $: currentEpisode = allEpisodes.find(e => e.id === currentId);
   $: prevId = currentEpisode ? allEpisodes[allEpisodes.indexOf(currentEpisode) - 1]?.id ?? null : null;
   $: nextId = currentEpisode ? allEpisodes[allEpisodes.indexOf(currentEpisode) + 1]?.id ?? null : null;
 
   onMount(async () => {
-    console.log('Log Output Success');
-    allEpisodes = episodesRaw
-      .map(e => ({ ...e, id: Number(e.id) }))
-      .sort((a, b) => a.id - b.id);
-    if (allEpisodes.length) {
-      await loadEpisode(allEpisodes[0].id);
-    }
+    allEpisodes = episodesRaw.map(e => ({ ...e, id: Number(e.id) })).sort((a, b) => a.id - b.id);
+    if (allEpisodes.length) await loadEpisode(allEpisodes[0].id);
+
+    audioEl.addEventListener('timeupdate', () => {
+      currentTime = audioEl.currentTime;
+    });
+    audioEl.addEventListener('loadedmetadata', () => {
+      duration = audioEl.duration;
+    });
+    audioEl.addEventListener('play', () => {
+      isPlaying = true;
+    });
+    audioEl.addEventListener('pause', () => {
+      isPlaying = false;
+    });
+    audioEl.addEventListener('ended', () => {
+      isPlaying = false;
+    });
   });
 
   async function loadEpisode(id) {
@@ -31,13 +53,21 @@
       currentHtml = `<p>Episode not found.</p>`;
       return;
     }
-    try {
-      const res = await fetch(ep.mdPath);
-      const md = res.ok ? await res.text() : '';
-      currentHtml = await marked(md);
-      audioEl.currentTime = 0;
-    } catch {
-      currentHtml = `<p>Error loading description.</p>`;
+    const res = await fetch(ep.mdPath);
+    const md = res.ok ? await res.text() : '';
+    currentHtml = await marked(md);
+    audioEl.currentTime = 0;
+    currentTime = 0;
+    duration = 0;
+    isPlaying = false;
+  }
+
+  function togglePlay() {
+    if (!audioEl) return;
+    if (isPlaying) {
+      audioEl.pause();
+    } else {
+      audioEl.play();
     }
   }
 
@@ -47,44 +77,62 @@
 </script>
 
 <div id="main">
-  <!-- Main content & audio player first for visualizer dependency -->
+  <div id="visualizer">
+    {#if audioEl}
+      <AsciiVisualizer {audioEl} />
+    {/if}
+  </div>
+
   <div id="content">
     {#if currentEpisode}
-      <h1>{currentEpisode.title}</h1>
+      <h1>Episode {currentEpisode.id}:<br />
+          {currentEpisode.title}
+      </h1>
+      
+      <!-- PLAYER UI -->
       <div id="player">
+        <!-- Native audio hidden for analysis only -->
         <audio
           bind:this={audioEl}
-            controls
-            crossorigin="anonymous"
-            src={currentEpisode.audio}
-            on:loadedmetadata={() => {
-            // Sanity check right when the media metadata is loaded:
-            console.log('Bound audioEl:', audioEl);
-            console.log('audioEl.src =', audioEl?.src);
-          }}
+          crossorigin="anonymous"
+          src={currentEpisode.audio}
+          style="display:none;"
         ></audio>
+
+        <!-- Text‐based play/stop button -->
+        <button
+          type="button"
+          class="bracket"
+          on:click={togglePlay}
+          class:active={isPlaying}
+        >
+          {#if isPlaying}[stop]{:else}[play]{/if}
+        </button>
+
+        <!-- Live time display -->
+        <span class="time">
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </span>
       </div>
+
       <div class="description">{@html currentHtml}</div>
     {:else}
       <p>Loading…</p>
     {/if}
   </div>
 
-  <!-- Visualizer section -->
-  <div id="visualizer">
-    {#if audioEl}
-      <AsciiVisualizer audioEl={audioEl} />
-    {/if}
-  </div>
-
-  <!-- Episodes list -->
   <div id="episodes">
     <ul>
-      {#each allEpisodes as ep}
-        <li class:selected={ep.id === currentId}>
+      {#each [...allEpisodes].reverse() as ep}
+        <li>
           <button
             type="button"
-            on:click={() => selectEpisode(ep.id)}
+            class="episode"
+            class:selected={ep.id === currentId}
+            on:click={() => {
+              selectEpisode(ep.id);
+              audioEl?.pause();
+            }}
           >
             {ep.id}. {ep.title}
           </button>
@@ -93,13 +141,12 @@
     </ul>
   </div>
 
-  <!-- Navigation controls -->
   {#if currentEpisode}
     <div id="nav">
-      <button on:click={() => selectEpisode(prevId)} disabled={!prevId}>
+      <button on:click={() => { selectEpisode(prevId); audioEl?.pause(); }} disabled={!prevId}>
         Prev
       </button>
-      <button on:click={() => selectEpisode(nextId)} disabled={!nextId}>
+      <button on:click={() => { selectEpisode(nextId); audioEl?.pause(); }} disabled={!nextId}>
         Next
       </button>
     </div>
