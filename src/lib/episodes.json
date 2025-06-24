@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Grief",
+    "audio": "https://cdn.scalineaudio.net/Grief%20%5BMetaprose%5D.mp3",
+    "mdPath": "/episodes/01.md"
+  },
+  {
+    "id": 2,
+    "title": "ACLSD",
+    "audio": "https://cdn.scalineaudio.net/ACLSD%20%5BMetaprose%5D.mp3",
+    "mdPath": "/episodes/02.md"
+  },
+  {
+    "id": 3,
+    "title": "Episode 3 - Antidance Theory",
+    "audio": "https://cdn.scalineaudio.net/Antidance%20Theory%20%5BMetaprose%5D.mp3",
+    "mdPath": "/episodes/03.md"
+  },
+  {
+    "id": 4,
+    "title": "Episode 4 - Pillars and Colour",
+    "audio": "https://cdn.scalineaudio.net/Pillars%20and%20Color%20%5BMetaprose%5D.mp3",
+    "mdPath": "/episodes/04.md"
+  },
+  {
+    "id": 5,
+    "title": "Episode 5 - The Visible and the Invisible",
+    "audio": "https://cdn.scalineaudio.net/The%20Visible%20and%20the%20Invisible%20%5BMetaprose%5D.mp3",
+    "mdPath": "/episodes/05.md"
+  }
+]
