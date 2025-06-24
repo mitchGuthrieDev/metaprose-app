@@ -162,24 +162,29 @@ button {
 #main {
   display: grid;
   grid-template-areas:
+    "topnav topnav  topnav"
     "visualizer content episodes"
     "visualizer nav      episodes";
-  grid-template-columns: 20ch minmax(60ch, 1fr) 40ch;
-  grid-template-rows: 1fr auto;
+  /* Visualizer: 20ch min, never shrinks below that
+     Content: min 40ch, max 1fr (fills remaining space)
+     Episodes: 18ch min, never below that */
+  grid-template-columns: minmax(20ch, 1fr) minmax(40ch, 2fr) minmax(18ch, 1fr);
+  grid-template-rows: auto 1fr auto;
   height: 100vh;
-  align-items: start;
 }
+
 
 #visualizer {
   grid-area: visualizer;
   width: 20ch;
   padding: var(--line);
   border-right: 0.1ch solid var(--c-grey);
+  padding: calc(var(--line) / 2) 5vw;
 }
 
 #content {
   grid-area: content;
-  padding: var(--line);
+  padding: calc(var(--line) / 2) 5vw;
   padding-right: calc(var(--line) * 1.5);
   padding-bottom: calc(var(--line) * 1.5);
   padding-left: calc(var(--line) * 1.5);
@@ -194,9 +199,26 @@ button {
   text-align: left;
   margin-top: 0;
   width: 35ch;
-  padding: var(--line);
+  padding: calc(var(--line) / 2) 5vw;
   scrollbar-width: none; /* Firefox */
 }
+
+/* Top bracket nav */
+#topnav {
+  grid-column: visualizer / episodes;
+  grid-row: 1;
+  display: flex;
+  gap: 1ch;
+  padding: var(--line) 0 0 var(--line);
+}
+
+@media (max-width: 768px) {
+  #topnav {
+    justify-content: center;
+    padding: var(--line) 0;
+  }
+}
+
 
 @media (max-width: 768px) {
   #content {
@@ -246,51 +268,35 @@ button {
   margin-top: calc(var(--line) / 256);
 }
 
-#nav {
-  grid-area: nav;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--line) 0;
-}
-
-#nav button {
+/* Base button styling */
+.btn {
   all: unset;
-  margin: 0 var(--line);
-  padding: calc(var(--line) / 2) var(--line);
+  display: inline-block;
   cursor: pointer;
-  border: 1px solid var(--c-white);
-  border-radius: 2ch;
-  background: var(--c-white);
+  font-family: var(--font);
+  font-size: 1rem;
+  border: 1px solid transparent;
+  color: var(--btn-color);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover effect: use each button's --btn-color */
+.btn:hover {
+  background: var(--btn-color);
   color: var(--c-black);
-}
-
-#nav button:hover:not(:disabled) {
-  background: var(--c-grey);
-}
-
-#nav button:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-/* bracketed link style */
-.bracket {
-  color: var(--c-green);
-  text-decoration: none;
-  text-align: left;
-}
-.bracket:hover {
-  color: var(--c-black);
-  background: var(--c-green);
   opacity: 0.8;
 }
-/* selected episode: inverted colors */
-.bracket.selected {
-  color: var(--c-black);
-  background: var(--c-green);
-  font-weight: bold;
-}
+
+/* Specific button types with their own colors */
+.btn-play { --btn-color: var(--c-green); }
+.btn-episode { --btn-color: var(--c-green); font-style: italic; }
+.btn-source { --btn-color: var(--c-purple); }
+.btn-nav-about { --btn-color: var(--c-blue); }
+.btn-nav-credits { --btn-color: var(--c-fuschia); }
+.btn-nav-rss { --btn-color: var(--c-orange); }
+.btn-nav-link-1 { --btn-color: var(--c-yellow); }
+
 
 /* Mobile: stack panels, hide visualizer */
 @media (max-width: 768px) {
