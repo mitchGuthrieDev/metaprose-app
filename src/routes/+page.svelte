@@ -55,6 +55,7 @@
         <audio
           bind:this={audioEl}
             controls
+            crossorigin="anonymous"
             src={currentEpisode.audio}
             on:loadedmetadata={() => {
             // Sanity check right when the media metadata is loaded:
