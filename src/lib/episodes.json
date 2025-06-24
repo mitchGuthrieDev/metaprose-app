@@ -1,13 +1,13 @@
 [
   {
     "id": 1,
-    "title": "Grief",
+    "title": "Episode 1 - Grief",
     "audio": "https://cdn.scalineaudio.net/Grief%20%5BMetaprose%5D.mp3",
     "mdPath": "/episodes/01.md"
   },
   {
     "id": 2,
-    "title": "ACLSD",
+    "title": "Episode 2 - ACLSD",
     "audio": "https://cdn.scalineaudio.net/ACLSD%20%5BMetaprose%5D.mp3",
     "mdPath": "/episodes/02.md"
   },
