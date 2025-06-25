@@ -173,7 +173,7 @@ body { font-size: 5vw; }
   all: unset;
   cursor: pointer;
   font-family: var(--font);
-  font-size: 0.85rem;
+  font-size: 1em;
   color: var(--btn-color);
   border: 1px solid transparent;
   background: transparent;
@@ -215,5 +215,17 @@ body { font-size: 5vw; }
 .ascii-visualizer span {
   display: inline-block;
   width: 1ch;
+}
+
+.ascii-visualizer.fullscreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  opacity: 0.3; /* light transparency */
+  pointer-events: none; /* ensures it's fully non-interactive */
+  text-align: center;
+  background: var(--c-black);
+  overflow: hidden;
+  font-size: 1vw; /* adjust density */
 }
 

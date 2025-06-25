@@ -23,6 +23,7 @@
   let allEpisodes = [];
   let currentId = null;
   let currentHtml = '';
+  let isWallpaper = false;
 
   // Audio state
   let audioEl;
@@ -110,12 +111,20 @@
   }
 
   function seek(seconds) {
-  if (!audioEl) return;
-  let target = audioEl.currentTime + seconds;
-  if (target < 0) target = 0;
-  if (target > audioEl.duration) target = audioEl.duration;
-  audioEl.currentTime = target;
-}
+    if (!audioEl) return;
+      let target = audioEl.currentTime + seconds;
+    if (target < 0) target = 0;
+    if (target > audioEl.duration) target = audioEl.duration;
+      audioEl.currentTime = target;
+  }
+
+  
+  function toggleWallpaper() {
+    isWallpaper = !isWallpaper;
+    document.body.classList.toggle('wallpaper', isWallpaper);
+  }
+
+  
 
 </script>
 
@@ -167,6 +176,7 @@
             <button class="btn btn-nav-source" on:click={() => window.open('https://www.paypal.com/donate/?hosted_button_id=283D6N3NJJ7T2&sdkMeta=eyJ1cmwiOiJodHRwczovL3d3dy5wYXlwYWxvYmplY3RzLmNvbS9kb25hdGUvc2RrL2RvbmF0ZS1zZGsuanMiLCJhdHRycyI6eyJkYXRhLXVpZCI6InVpZF9wb2t1aW9tbmJnc293cGhpc2F1Z2VianVpb21iamsifX0&targetMeta=eyJ6b2lkVmVyc2lvbiI6IjlfMF81OCIsInRhcmdldCI6IkRPTkFURSIsInNka1ZlcnNpb24iOiIwLjkuMCJ9', '_blank')}>[donate]</button>
             <button class="btn btn-invert" on:click={toggleInvert}>[invert]</button>
             <button class="btn btn-invert" on:click={toggleGrayscale}>[grayscale]</button>
+            <button class="btn btn-invert" on:click={toggleWallpaper}>[wallpaper]</button>
           </div>
         </nav>
       </section>
@@ -228,7 +238,7 @@
             {#each [...allEpisodes].reverse() as ep}
               <div class="mb-1">
                 <button
-                  class="btn btn-episode text-sm truncate"
+                  class="btn btn-episode truncate"
                   class:selected={viewType === 'episode' && ep.id === currentId}
                   on:click={() => selectEpisode(ep.id)}
                 >
