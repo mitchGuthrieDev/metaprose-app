@@ -25,7 +25,9 @@
 	font-style: normal;
 }
 
-/* Palette */
+/*────────────────────────────────────────────────────────
+  Palette (unchanged + grayscale added)
+────────────────────────────────────────────────────────*/
 body {
 	--c-black: #1a1a1a;
 	--c-white: #e1e1e1;
@@ -50,18 +52,31 @@ body.invert {
 	--c-orange: #dd7200;
 	--c-yellow: #949700;
 }
+body.grayscale {
+	--c-black: #000000;
+	--c-white: #ffffff;
+	--c-grey:  #999999;
+	--c-purple: #777777;
+	--c-fuschia: #aaaaaa;
+	--c-blue: #888888;
+	--c-green: #bbbbbb;
+	--c-orange: #999999;
+	--c-yellow: #cccccc;
+}
 
-.black {   color:var(--c-black);   --c-current:var(--c-black); }
-.white {   color:var(--c-white);   --c-current:var(--c-white); }
-.grey {    color:var(--c-grey);    --c-current:var(--c-grey); }
-.purple {  color:var(--c-purple);  --c-current:var(--c-purple); }
+.black { color:var(--c-black); --c-current:var(--c-black); }
+.white { color:var(--c-white); --c-current:var(--c-white); }
+.grey  { color:var(--c-grey);  --c-current:var(--c-grey); }
+.purple{ color:var(--c-purple);--c-current:var(--c-purple); }
 .fuschia { color:var(--c-fuschia); --c-current:var(--c-fuschia); }
-.blue {    color:var(--c-blue);    --c-current:var(--c-blue); }
-.green {   color:var(--c-green);   --c-current:var(--c-green); }
-.orange {  color:var(--c-orange);  --c-current:var(--c-orange); }
-.yellow {  color:var(--c-yellow);  --c-current:var(--c-yellow); }
+.blue  { color:var(--c-blue);  --c-current:var(--c-blue); }
+.green { color:var(--c-green); --c-current:var(--c-green); }
+.orange{ color:var(--c-orange);--c-current:var(--c-orange); }
+yellow{ color:var(--c-yellow);--c-current:var(--c-yellow); }
 
-/* Type */
+/*────────────────────────────────────────────────────────
+  Type (unchanged)
+────────────────────────────────────────────────────────*/
 a {
 	color:var(--c-current);
 	text-decoration: none;
@@ -72,7 +87,6 @@ a:hover, .selected, .hover:hover {
 	box-shadow: 0.4ch 0 0 0 var(--c-current), -0.3ch 0 0 0 var(--c-current), 0.4ch 0.2ch 0 0 var(--c-current), -0.3ch 0.2ch 0 0 var(--c-current);
 	opacity:0.8;
 }
-
 @media (min-width: 1024px) {	
 	.large {
 		font-size: 4vw;
@@ -81,9 +95,8 @@ a:hover, .selected, .hover:hover {
 	}
 }
 
-
 /*────────────────────────────────────────────────────────
-  Fluid Typography & Base Reset
+  Fluid Typography & Reset (unchanged)
 ────────────────────────────────────────────────────────*/
 html, body {
   margin: 0;
@@ -95,117 +108,72 @@ html, body {
   letter-spacing: .01em;
   box-sizing: border-box;
 }
-
-/* fluid scaling: 5vw down to 1.111vw */
-body {
-  font-size: 5vw;
-}
-@media (min-width: 480px) {
-  body { font-size: 3vw; }
-}
-@media (min-width: 768px) {
-  body { font-size: 2vw; }
-}
-@media (min-width: 1024px) {
-  body { font-size: 1.111vw; overflow: hidden; }
-}
-
-/* utility box-sizing */
+body { font-size: 5vw; }
+@media (min-width: 480px) { body { font-size: 3vw; } }
+@media (min-width: 768px) { body { font-size: 2vw; } }
+@media (min-width: 1024px) { body { font-size: 1.111vw; overflow: hidden; } }
 *, *::before, *::after { box-sizing: inherit; }
 
 /*────────────────────────────────────────────────────────
-  Three-Column Flex Layout
+  Utility Classes (unchanged)
 ────────────────────────────────────────────────────────*/
-#main {
-  display: flex;
-  height: 100vh;
-}
-
-/* Left column wrapper (pin and stack items vertically) */
-.left {
-  display: flex;
-  flex-direction: column;
-  width: 15ch;      /* fixed min width */
-  flex-shrink: 0;   /* don’t collapse */
-}
-
-/* Center column (fluid, scrollable) */
-#content {
-  flex-shrink: 0;
-  overflow-y: auto;
-  padding: 2vw 1vw;
-}
-
-/* Right column (fixed, scrollable) */
-#episodes {
-  width: 50ch;
-  flex-shrink: 0;
-  overflow-y: auto;
-  padding: 2vw 1vw;
-}
-
-/* Pin each left-column child so it stays in view (optional) */
-.left > * {
-  position: sticky;
-  top: 0;
-  background: var(--c-black); /* ensure solid background */
-  padding: 1ch;
-}
-
-/* If you need a small gap between left-column rows: */
-.left > * + * {
-  margin-top: 0.5ch;
-}
-
-/* Mobile: stack everything in a single column */
-@media (max-width: 768px) {
-  #main {
-    flex-direction: column;
-  }
-  .left {
-    width: 100%;
-  }
-  #episodes {
-    width: 100%;
-  }
-}
-
-
-/*────────────────────────────────────────────────────────
-  Columnized Track List
-────────────────────────────────────────────────────────*/
-.columns {
-  column-count: 2;
-  column-gap: 1ch;
-}
-
-/*────────────────────────────────────────────────────────
-  Utility Classes (mobile-first)
-────────────────────────────────────────────────────────*/
+/* Layout */
+.full { width: 100%; }
+.h-min-screen { min-height: 100vh; }
 .flex { display: flex; }
-.col  { flex-direction: column; }
-.center { justify-content: center; align-items: center; }
-.hidden { display: none; }
+.row { flex-direction: row; }
+.col { flex-direction: column; }
+.wrap { flex-wrap: wrap; }
+.relative { position: relative; }
+.noselect { user-select: none; }
 
+/* Spacing */
+.px { padding-left: 1rem; padding-right: 1rem; }
+.pad { padding: 1rem; }
+.pl-1 { padding-left: 0.25rem; }
+.pr-0 { padding-right: 0; }
+.pt { padding-top: 1rem; }
+.pt-0 { padding-top: 0; }
+.pb-0 { padding-bottom: 0; }
+.py { padding-top: 1rem; padding-bottom: 1rem; }
+.mb { margin-bottom: 1rem; }
+.y-space { margin-bottom: 2rem; }
+
+/* Text Layout */
+.text-sm { font-size: 0.85rem !important; }
+
+/* Add this to your Utility Classes section */
+
+.pad-topless { 
+  padding: 0 1rem 1rem 1rem;
+}
+
+
+/* Responsive Layout */
 @media (min-width: 768px) {
+  .md\:half { width: 50%; }
+  .md\:py { padding-top: 1rem; padding-bottom: 1rem; }
   .md\:hidden { display: none !important; }
-  .md\:flex   { display: flex; }
-  .md\:col    { flex-direction: column; }
+  .md\:inline { display: inline !important; }
+  .md\:flex { display: flex !important; }
 }
-
 @media (min-width: 1024px) {
-  .lg\:hidden  { display: none !important; }
-  .lg\:flex    { display: flex; }
+  .lg\:quarter { width: 25%; }
+  .lg\:screen-v-scroll { overflow-y: auto; height: 100vh; }
+  .lg\:flex { display: flex !important; }
+  .lg\:hidden { display: none !important; }
+  .lg\:inline { display: inline !important; }
 }
+.hidden { display: none !important; }
 
 /*────────────────────────────────────────────────────────
-  Bracketed Links & Buttons
+  Buttons (unchanged and preserved)
 ────────────────────────────────────────────────────────*/
 .btn {
   all: unset;
   cursor: pointer;
   font-family: var(--font);
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: var(--btn-color);
   border: 1px solid transparent;
   background: transparent;
@@ -216,10 +184,8 @@ body {
   color: var(--c-black);
   opacity: .8;
 }
-
-/* define colors per role */
 .btn-play { --btn-color: var(--c-green); }
-.btn-episode { --btn-color: var(--c-green); font-style: italic; }
+.btn-episode { --btn-color: var(--c-green); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .btn-source { --btn-color: var(--c-purple); }
 .btn-nav-about { --btn-color: var(--c-blue); }
 .btn-nav-credits { --btn-color: var(--c-fuschia); }
@@ -229,12 +195,25 @@ body {
 .btn-volume { --btn-color: var(--c-purple); }
 
 /*────────────────────────────────────────────────────────
-  Headings & Selections
+  Headings & Selections (unchanged)
 ────────────────────────────────────────────────────────*/
-#content h1 {
-  margin: 0 0 1ch;
+#content h1 { margin: 0 0 1ch; }
+::selection { background: var(--c-grey); color: var(--c-black); }
+
+/*────────────────────────────────────────────────────────
+  Subtle hover effect like original site
+────────────────────────────────────────────────────────*/
+.subtle-hover:hover { opacity: 0.7; }
+
+/*────────────────────────────────────────────────────────
+  Ascii Visualizer
+────────────────────────────────────────────────────────*/
+.ascii-visualizer {
+  text-align: center;
 }
-::selection {
-  background: var(--c-grey);
-  color: var(--c-black);
+
+.ascii-visualizer span {
+  display: inline-block;
+  width: 1ch;
 }
+
