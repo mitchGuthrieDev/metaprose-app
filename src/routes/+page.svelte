@@ -100,7 +100,7 @@
       const len = head.headers.get('content-length');
       const url = audioEl?.src || ep.audio;
       console.log('Fetched content-length for', url, ':', len);
-      fileSize = len ? `${(Number(len) / 1024).toFixed(1)} KB` : '';
+      fileSize = len ? `${(Number(len) / (1024 * 1024)).toFixed(2)} MB` : '';
     } catch {
       fileSize = '';
     }
@@ -121,22 +121,38 @@
 </script>
 
 <div id="main">
-  <!-- Top bracket nav -->
-  <div id="topnav">
-    <button class="btn btn-nav-about" on:click={() => loadPage('about')}>[about]</button>
-    <button class="btn btn-nav-credits" on:click={() => loadPage('credits')}>[credits]</button>
-    <button class="btn btn-nav-rss" on:click={() => window.open('/rss.xml', '_blank')}>[rss]</button>
-    <button class="btn btn-nav-source" on:click={() => window.open('https://github.com/your/repo', '_blank')}>[source]</button>
-    <button class="btn btn-invert" on:click={toggleInvert}>[invert]</button>
-  </div>
-
-  {#if viewType === 'episode'}
+  <!-- Left Container -->
+  <div id="left">
+    {#if viewType === 'episode'}
     <div id="visualizer">
       {#if audioEl}
         <AsciiVisualizer {audioEl} />
       {/if}
     </div>
-  {/if}
+    {/if}
+    
+    <div id="controls-1">
+      <button class="btn btn-audio" on:click={() => selectEpisode(prevId)} disabled={!prevId}>[prev]</button>
+      <button class="btn btn-audio" on:click={() => selectEpisode(prevId)} disabled={!prevId}>[-30]</button>
+      <button type="button" class="btn btn-audio" on:click={togglePlay}>{isPlaying ? '[stop]' : '[play]'}</button>
+      <button class="btn btn-audio" on:click={() => selectEpisode(prevId)} disabled={!prevId}>[+30]</button>
+      <button class="btn btn-audio" on:click={() => selectEpisode(nextId)} disabled={!nextId}>[next]</button>
+    </div>
+
+    <div id="controls-2">
+      <button class="btn btn-volume" on:click={() => loadPage('episode')}>[v-]</button>
+      <button class="btn btn-volume" on:click={() => loadPage('about')}>[v-]</button>
+      <button class="btn btn-volume" on:click={() => loadPage('credits')}>[random]</button>
+    </div>  
+
+    <div id="nav">
+      <button class="btn btn-audio" on:click={() => loadPage('about')}>[about]</button>
+      <button class="btn btn-nav-credits" on:click={() => loadPage('credits')}>[credits]</button>
+      <button class="btn btn-nav-rss" on:click={() => window.open('/rss.xml', '_blank')}>[rss]</button>
+      <button class="btn btn-nav-source" on:click={() => window.open('https://github.com/your/repo', '_blank')}>[source]</button>
+      <button class="btn btn-invert" on:click={toggleInvert}>[invert]</button>
+    </div>
+  </div>
 
   <div id="content">
     <h1>
@@ -161,7 +177,7 @@
           on:pause={() => (isPlaying = false)}
           on:ended={() => (isPlaying = false)}
         ></audio>
-        <button type="button" class="btn btn-play" on:click={togglePlay}>{isPlaying ? '[stop]' : '[play]'}</button>
+        <button type="button" class="btn btn-audio" on:click={togglePlay}>{isPlaying ? '[stop]' : '[play]'}</button>
         <span class="time">{formatTime(currentTime)} / {formatTime(duration)}</span>
         <div class="source-download">
           <button class="btn btn-source" on:click={() => (window.location.href = currentEpisode.audio)}>[source]</button>
@@ -185,17 +201,10 @@
             class:selected={viewType === 'episode' && ep.id === currentId}
             on:click={() => selectEpisode(ep.id)}
           >
-            {ep.id}. {ep.title}
+            {ep.id}: {ep.title}
           </button>
         </li>
       {/each}
     </ul>
   </div>
-
-  {#if viewType === 'episode'}
-    <div id="nav">
-      <button class="btn btn-nav-about" on:click={() => selectEpisode(prevId)} disabled={!prevId}>Prev</button>
-      <button class="btn btn-nav-about" on:click={() => selectEpisode(nextId)} disabled={!nextId}>Next</button>
-    </div>
-  {/if}
 </div>
