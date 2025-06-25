@@ -72,13 +72,13 @@ body.grayscale {
 .blue  { color:var(--c-blue);  --c-current:var(--c-blue); }
 .green { color:var(--c-green); --c-current:var(--c-green); }
 .orange{ color:var(--c-orange);--c-current:var(--c-orange); }
-yellow{ color:var(--c-yellow);--c-current:var(--c-yellow); }
+.yellow{ color:var(--c-yellow);--c-current:var(--c-yellow); }
 
 /*────────────────────────────────────────────────────────
   Type (unchanged)
 ────────────────────────────────────────────────────────*/
 a {
-	color:var(--c-current);
+	color:var(--c-blue);
 	text-decoration: none;
 }
 a:hover, .selected, .hover:hover {
