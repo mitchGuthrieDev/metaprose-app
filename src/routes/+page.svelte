@@ -6,16 +6,10 @@
 
   // Theme state
   let isInverted = false;
-  let isGrayscale = false;
 
   function toggleInvert() {
     isInverted = !isInverted;
     document.body.classList.toggle('invert', isInverted);
-  }
-
-  function toggleGrayscale() {
-    isGrayscale = !isGrayscale;
-    document.body.classList.toggle('grayscale', isGrayscale);
   }
 
   // View & data state
@@ -175,7 +169,6 @@
             <button class="btn btn-nav-rss" on:click={() => window.open('/rss.xml', '_blank')}>[rss]</button>
             <button class="btn btn-nav-source" on:click={() => window.open('https://www.paypal.com/donate/?hosted_button_id=283D6N3NJJ7T2&sdkMeta=eyJ1cmwiOiJodHRwczovL3d3dy5wYXlwYWxvYmplY3RzLmNvbS9kb25hdGUvc2RrL2RvbmF0ZS1zZGsuanMiLCJhdHRycyI6eyJkYXRhLXVpZCI6InVpZF9wb2t1aW9tbmJnc293cGhpc2F1Z2VianVpb21iamsifX0&targetMeta=eyJ6b2lkVmVyc2lvbiI6IjlfMF81OCIsInRhcmdldCI6IkRPTkFURSIsInNka1ZlcnNpb24iOiIwLjkuMCJ9', '_blank')}>[donate]</button>
             <button class="btn btn-invert" on:click={toggleInvert}>[invert]</button>
-            <button class="btn btn-invert" on:click={toggleGrayscale}>[grayscale]</button>
             <button class="btn btn-invert" on:click={toggleWallpaper}>[wallpaper]</button>
           </div>
         </nav>

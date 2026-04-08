@@ -26,33 +26,9 @@
 }
 
 /*────────────────────────────────────────────────────────
-  Palette (unchanged + grayscale added)
+  Palette (grayscale / monochrome)
 ────────────────────────────────────────────────────────*/
 body {
-	--c-black: #1a1a1a;
-	--c-white: #e1e1e1;
-	--c-grey: #898989;
-	--c-purple: #b462ff;
-	--c-fuschia: #ff45b4;
-	--c-blue: #18b6ff;
-	--c-green: #1beb9e;
-	--c-orange: #ff9528;
-	--c-yellow: #dddd25;
-	--line: 2.5ch;
-	--font: 'IBM', monospace;
-}
-body.invert {
-	--c-black: #d5d5d5;
-	--c-white: #2a2830;
-	--c-grey: #7e7e7e;
-	--c-purple: #6b1fa3;
-	--c-fuschia: #f50777;
-	--c-blue: #0b8cff;
-	--c-green: #00a76c;
-	--c-orange: #dd7200;
-	--c-yellow: #949700;
-}
-body.grayscale {
 	--c-black: #000000;
 	--c-white: #ffffff;
 	--c-grey:  #999999;
@@ -61,6 +37,19 @@ body.grayscale {
 	--c-blue: #888888;
 	--c-green: #bbbbbb;
 	--c-orange: #999999;
+	--c-yellow: #cccccc;
+	--line: 2.5ch;
+	--font: 'IBM', monospace;
+}
+body.invert {
+	--c-black: #ffffff;
+	--c-white: #000000;
+	--c-grey: #999999;
+	--c-purple: #aaaaaa;
+	--c-fuschia: #777777;
+	--c-blue: #999999;
+	--c-green: #888888;
+	--c-orange: #bbbbbb;
 	--c-yellow: #cccccc;
 }
 
@@ -228,4 +217,3 @@ body { font-size: 5vw; }
   overflow: hidden;
   font-size: 1vw; /* adjust density */
 }
-
