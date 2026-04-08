@@ -4,19 +4,19 @@ A Svelte-based web clone inspired by musicforprogramming.net, built with a fully
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🎵 Episode browser & player with Markdown support for tracklist descriptions.
-- 🎚 Custom ASCII visualizer with color-coded amplitude display.
-- 🎨 Dynamic theming with:
+- Episode browser & player with Markdown support for tracklist descriptions.
+- Custom ASCII visualizer with color-coded amplitude display.
+- Dynamic theming with:
   - **Invert mode** (light-on-dark / dark-on-light)
   - **Grayscale mode** (monochrome aesthetic)
-- 🔊 Audio seeking (+30/-30 sec controls).
-- 📱 Fully responsive flexbox grid.
+- Audio seeking (+30/-30 sec controls).
+- Fully responsive flexbox grid.
 
 ---
 
-## 🗂 Project Structure
+## Project Structure
 
 ### Main Components
 
@@ -31,7 +31,7 @@ A Svelte-based web clone inspired by musicforprogramming.net, built with a fully
 
 ---
 
-## 🎨 Design System (Utilities)
+## Design System (Utilities)
 
 ### Layout Utilities
 | Class | Description |
@@ -65,11 +65,10 @@ A Svelte-based web clone inspired by musicforprogramming.net, built with a fully
 | Class | Mode |
 |--|--|
 | `body.invert` | inverted colors |
-| `body.grayscale` | grayscale palette |
 
 ---
 
-## 🔧 Audio Visualizer Logic
+## Audio Visualizer Logic
 - Uses `AnalyserNode` FFT with smoothing.
 - Applies Fletcher-Munson equal-loudness curve for perceptual amplitude mapping.
 - Converts amplitudes into vertical ASCII character stacks.
@@ -78,7 +77,7 @@ A Svelte-based web clone inspired by musicforprogramming.net, built with a fully
 
 ---
 
-## 🚦 Global Theme Palette
+## Global Theme Palette
 
 CSS variables automatically handle all color modes:
 
@@ -94,7 +93,7 @@ Color classes like `.green` dynamically follow active palette.
 
 ---
 
-## 🧪 Quick Start
+## Quick Start
 
 ```bash
 npm install
@@ -103,7 +102,7 @@ npm run dev
 
 ---
 
-## 🎯 Future Ideas
+## Future Ideas
 - Episode shuffle/randomizer
 - Track seeking via visualizer interaction
 - Export visualizer as animated ASCII art
@@ -111,4 +110,4 @@ npm run dev
 
 ---
 
-**Built with ❤️ using Svelte + pure CSS utilities.**
+**Built using Svelte + pure CSS utilities.**

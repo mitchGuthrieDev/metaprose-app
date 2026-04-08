@@ -28,5 +28,11 @@
     "title": "The Visible and the Invisible",
     "audio": "https://cdn.scalineaudio.net/The%20Visible%20and%20the%20Invisible%20%5BMetaprose%5D.mp3",
     "mdPath": "/episodes/05.md"
+  },
+  {
+    "id": 6,
+    "title": "Nodeflourish Mix - March 2026",
+    "audio": "hhttps://cdn.scalineaudio.net/Metaprose%20-%20Nodeflourish%20Mix.mp3",
+    "mdPath": "/episodes/06.md"
   }
 ]
